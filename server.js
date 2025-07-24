@@ -22,7 +22,7 @@ app.use(cors({
 // }, 
 // {
 //every deploy on vercel will create a new endpoint
-    origin: ['http://localhost:5173', 'https://front-e2nd-data-react-8zruxydnk.vercel.app/'],
+    origin: ['http://localhost:5173', 'https://front-e2nd-data-react-8zruxydnk.vercel.app'],
     credentials: true
 }));
 app.use(express.json());
