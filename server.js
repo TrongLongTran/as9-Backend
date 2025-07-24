@@ -17,7 +17,11 @@ const app = express();
 app.use(cookieParser())
 // cors is used to make our server indicate to any origin Cross-origin resource sharing
 app.use(cors({
-    origin: 'http://localhost:5173',  //front-end
+//     origin: 'https://front-e2nd-data-react-onncivzzc.vercel.app',  //front-end
+//     credentials: true
+// }, 
+// {
+    origin: ['http://localhost:5173', 'https://front-e2nd-data-react-b1wll0uf1.vercel.app'],
     credentials: true
 }));
 app.use(express.json());
