@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const {verifyToken} = require('../middleware/auth')
+const dotenv = require('dotenv');
 
 const router = express.Router();
 
@@ -38,7 +39,7 @@ router.post('/login', async (req, res)=>{
         const isMatch = await bcrypt.compare(password, user.passwordHash);
         if(!isMatch) return res.status(401).json({error: 'Invalid credentials'});
 
-        const token = jwt.sign({userId: user._id}, JWT_SECRET);
+        const token = jwt.sign({userId: user._id}, process.env.JWT_SECRET);
         // res.json({token});
         res.cookie('token', token, {
             httpOnly: true,
@@ -58,7 +59,7 @@ router.get('/me', verifyToken, async (req, res)=>{
     if (!token) return res.status(401).json({error: 'Missing token'});
 
     try{
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.userId).select('username email createdAt');
         res.json(user);
     }catch{
